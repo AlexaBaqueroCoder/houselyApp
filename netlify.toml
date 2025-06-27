@@ -6,6 +6,12 @@
   NODE_VERSION = "18"
   NPM_VERSION = "9"
 
+# SPA redirects for client-side routing
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
 [[headers]]
   for = "/*"
   [headers.values]
@@ -33,8 +39,3 @@
   for = "/mockServiceWorker.js"
   [headers.values]
     Cache-Control = "no-cache, no-store, must-revalidate"
-
-[[redirects]
-    from = "*"
-    to = "/index.html"
-    status = 200
