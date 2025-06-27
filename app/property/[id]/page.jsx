@@ -2,6 +2,14 @@
 
 import {useEffect, useState} from "react"
 import { getPropertyById } from "@/mocks/mockApi"
+import { mockProperties } from "@/mocks/data"
+
+// Generate static params for all property IDs
+export async function generateStaticParams() {
+  return mockProperties.map((property) => ({
+    id: property._id,
+  }))
+}
 
 async function GetProperty(id) {
     // Use mock API for deployment compatibility
