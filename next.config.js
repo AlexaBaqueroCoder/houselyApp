@@ -5,13 +5,12 @@ const nextConfig = {
   images: {
     unoptimized: true,
   },
-  // Disable server-side features for static export
   typescript: {
     ignoreBuildErrors: true,
   },
-  eslint: 
+  eslint: {
     ignoreDuringBuilds: true,
   },
 };
 
-export default nextConfig;
+module.exports = nextConfig; 
