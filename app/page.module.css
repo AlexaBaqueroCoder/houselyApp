@@ -1,0 +1,263 @@
+/* ============================================= */
+/* Animations for the glowing effect on .card    */
+/* ============================================= */
+@keyframes glowBefore {
+    0% {
+        transform: translateX(-100%) skewX(-20deg);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateX(80%) skewX(-20deg);
+        opacity: 0.5;
+    }
+    100% {
+        transform: translateX(200%) skewX(-20deg);
+        opacity: 0;
+    }
+}
+
+@keyframes glowAfter {
+    0% {
+        transform: translateX(-150%) skewX(-20deg);
+        opacity: 0.3;
+    }
+    50% {
+        transform: translateX(80%) skewX(-20deg);
+        opacity: 0.7;
+    }
+    100% {
+        transform: translateX(200%) skewX(-20deg);
+        opacity: 0;
+    }
+}
+
+/* ============================================= */
+/* Main Layout                                   */
+/* ============================================= */
+.main {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 2rem 1rem;
+    min-height: 100vh;
+    background: #1d1d20;
+}
+
+.main h1 {
+    color: #fff;
+    margin-bottom: 2rem;
+}
+
+/* ============================================= */
+/* Properties Grid                               */
+/* ============================================= */
+.properties {
+    margin: 2rem auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* 3 columns on large screens */
+    gap: 1.5rem;
+    width: 90%;
+}
+
+/* Tablet breakpoint (max-width: 992px) */
+@media (max-width: 992px) {
+    .properties {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Mobile breakpoint (max-width: 576px) */
+@media (max-width: 576px) {
+    .properties {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ============================================= */
+/* Card Styles                                   */
+/* ============================================= */
+.card {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    border-radius: 16px;
+    /* Remove fixed height and let content dictate size */
+    min-height: 24rem;
+    height: auto;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.card:hover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-8px);
+}
+
+/* Glow effect on hover */
+.card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -65%;
+    z-index: 2;
+    display: block;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.8) 100%
+    );
+    transform: skewX(-20deg);
+    opacity: 0;
+}
+
+.card:hover::before {
+    animation: glowBefore 0.5s ease-in forwards;
+    opacity: 1;
+}
+
+.card::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -85%;
+    z-index: 3;
+    width: 50%;
+    height: 100%;
+    background: linear-gradient(
+            to right,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.7) 100%
+    );
+    transform: skewX(-20deg);
+    filter: blur(10px);
+    opacity: 1;
+}
+
+.card:hover::after {
+    animation: glowAfter 0.6s ease-out 0.2s forwards;
+    opacity: 1;
+}
+
+/* ============================================= */
+/* Image Carousel Controls                       */
+/* ============================================= */
+.imageWrapper {
+    position: relative;
+    height: 250px; /* you can adjust or remove if you prefer auto-height */
+    overflow: hidden;
+}
+
+.propertyImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.chevronLeft,
+.chevronRight {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    padding: 0.5rem;
+    cursor: pointer;
+    z-index: 2;
+}
+
+.chevronLeft {
+    left: 10px;
+}
+
+.chevronRight {
+    right: 10px;
+}
+
+/* Smaller screens (below 400px) adjustments */
+@media (max-width: 400px) {
+    .imageWrapper {
+        height: 180px;
+    }
+
+    .chevronLeft,
+    .chevronRight {
+        padding: 0.3rem;
+        transform: translateY(-50%) scale(0.8);
+    }
+}
+
+/* ============================================= */
+/* Property Details inside each card             */
+/* ============================================= */
+.propertyDetails {
+    padding: 1rem;
+    text-align: left;
+    color: lightgrey;
+}
+
+.propertyName {
+    font-size: 1.25rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: #fff; /* stand out more against dark bg */
+}
+
+.propertyInfo {
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+    color: #ccc;
+}
+
+/* Responsive font sizes */
+@media (max-width: 576px) {
+    .propertyName {
+        font-size: 1rem;
+    }
+
+    .propertyInfo {
+        font-size: 0.85rem;
+    }
+}
+
+/* ============================================= */
+/* Buttons                                       */
+/* ============================================= */
+.detailButton {
+    display: inline-block;
+    background: #16a085;
+    color: #fff;
+    border: none;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.detailButton:hover {
+    background: #1abc9c;
+}
+
+/* ============================================= */
+/* Utility classes                               */
+/* ============================================= */
+.text-ellipsis {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 200px;
+}
+
+.card::before,
+.card::after {
+    pointer-events: none !important;
+}
