@@ -1,11 +1,11 @@
 "use client"
 
 import {useEffect, useState} from "react"
-import axios from "axios"
+import { getPropertyById } from "@/mocks/mockApi"
 
 async function GetProperty(id) {
-    const response = await axios.get('http://127.0.0.1:8004/properties/' + id)
-    return response.data
+    // Use mock API for deployment compatibility
+    return await getPropertyById(id)
 }
 
 export default function Main({params}) {
