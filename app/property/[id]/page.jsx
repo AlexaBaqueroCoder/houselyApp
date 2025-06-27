@@ -1,6 +1,3 @@
-"use client"
-
-import {useEffect, useState} from "react"
 import { getPropertyById } from "@/mocks/mockApi"
 import { mockProperties } from "@/mocks/data"
 
@@ -11,20 +8,9 @@ export async function generateStaticParams() {
   }))
 }
 
-async function GetProperty(id) {
-    // Use mock API for deployment compatibility
-    return await getPropertyById(id)
-}
-
-export default function Main({params}) {
+export default async function Main({params}) {
     const id = params.id
-    const [property, setProperty] = useState('')
-
-    useEffect(() => {
-        GetProperty(id)
-            .then(propertyItem => setProperty(propertyItem))
-            .catch(e => console.log('error', e.message))
-    }, [])
+    const property = await getPropertyById(id)
 
     return (
         <div className="container mx-auto p-6 max-w-6xl bg-customColor text-white">

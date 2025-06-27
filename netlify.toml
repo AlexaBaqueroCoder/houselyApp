@@ -1,5 +1,5 @@
 [build]
-  command = "npm run build"
+  command = "npm run build:static"
   publish = "out"
 
 [build.environment]
@@ -32,4 +32,9 @@
 [[headers]]
   for = "/mockServiceWorker.js"
   [headers.values]
-    Cache-Control = "no-cache, no-store, must-revalidate" 
+    Cache-Control = "no-cache, no-store, must-revalidate"
+
+[[redirects]
+    from = "*"
+    to = "/index.html"
+    status = 200
